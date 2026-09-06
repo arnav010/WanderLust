@@ -1,0 +1,96 @@
+<% layout("layouts/boilerplate") %>
+<style>
+.filters{
+  display: flex; gap: 40px; padding: 20px; overflow-x: auto;
+  align-items: center;
+}
+.form-check{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid black;
+  border-radius: 20px;
+  margin-left: 190px;
+}
+#flexSwitchCheckDefault{
+margin-top: -0.33rem;
+margin: -24px;
+}
+.filter-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.form-check-label{
+  margin-left: 25px;
+  margin-right: 20px;
+  margin-top: 8px;
+}
+
+
+</style>
+<div class="filters">
+  <div class="filter-item">
+    <div>🔥</div><div>Trending</div>
+  </div>
+  <div class="filter-item">
+    <div>🛏️</div><div>Rooms</div>
+  </div>
+  <div class="filter-item">
+    <div>🌆</div><div>Iconic Cities</div>
+  </div>
+  <div class="filter-item">
+    <div>⛰️</div><div>Mountains</div>
+  </div>
+  <div class="filter-item">
+    <div>🏰</div><div>Castles</div>
+  </div>
+  <div class="filter-item">
+    <div>🏊</div><div>Amazing Pools</div>
+  </div>
+  <div class="filter-item">
+    <div>🏕️</div><div>Camping</div>
+  </div>
+  <div class="filter-item">
+    <div>🚜</div><div>Farms</div>
+  </div>
+  <div class="filter-item">
+    <div>❄️</div><div>Arctic</div>
+  </div>
+  <div class="form-check form-switch">
+    <input id="flexSwitchCheckDefault" class="form-check-input" type="checkbox" role="switch">
+    <label class="form-check-label" for="switchCheckDefault">Display Total After Taxes</label>
+  </div>
+</div>
+
+
+</div>
+
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 aa" >
+  <% for(let listing of allListings) { %>
+    <div class="card col" style="width: 33%;">
+      <a href="/listings/<%= listing._id %>">
+        <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image">
+        <div class="card-body">
+          <p class="card-text">
+            <%= listing.title %> <br><br>
+            &#8377; <%= listing.price.toLocaleString("en-IN") %> /night
+            <i style="display: none;" class="tax-info">&nbsp; +18% GST</i>
+          </p>
+        </div>
+      </a>
+    </div>
+  <% } %>
+</div>
+
+
+<script>
+  let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+  taxSwitch.addEventListener("click",()=>{
+    let taxInfo = document.getElementsByClassName("tax-info");
+    for(info of taxInfo){
+      if(info.style.display == "inline") info.style.display = "none";
+      else info.style.display = "inline";
+    }
+  })
+</script>
